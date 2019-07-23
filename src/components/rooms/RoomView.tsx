@@ -25,12 +25,12 @@ type Props = {
   roomType: string;
   price: number;
   size: number;
-  roomDescription: string;
+  floor: number;
 };
 
 const RoomView: React.FC<Props> = props => {
   const classes = useStyles();
-  const { roomType, roomDescription, price, size } = props;
+  const { roomType, floor, price, size } = props;
 
   return (
     <Card className={classes.card}>
@@ -45,7 +45,7 @@ const RoomView: React.FC<Props> = props => {
             {roomType}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {roomDescription}
+            This is a {roomType} room located on the {floor} floor.
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             &euro;{price},-
@@ -57,10 +57,10 @@ const RoomView: React.FC<Props> = props => {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Add
+          Book room
         </Button>
         <Button size="small" color="primary">
-          View
+          View room details
         </Button>
       </CardActions>
     </Card>

@@ -6,36 +6,19 @@ import Grid from "@material-ui/core/Grid";
 interface Props {}
 interface State {
   rooms: Array<roomType>;
+  error: string;
 }
 type roomType = {
-  roomType: string;
+  type: string;
+  floor: number;
+  roomNumber: number;
+  adults: number;
   price: number;
-  size: number;
-  roomDescription: string;
 };
 class RoomOverview extends React.Component<Props, State> {
   state: State = {
-    rooms: [
-      {
-        roomType: "bla",
-        price: 1,
-        size: 1,
-        roomDescription: "super nice room"
-      },
-      {
-        roomType: "bla",
-        price: 1,
-        size: 1,
-        roomDescription: "super nice room"
-      },
-      {
-        roomType: "bla",
-        price: 1,
-        size: 1,
-        roomDescription: "super nice room"
-      },
-      { roomType: "bla", price: 1, size: 1, roomDescription: "super nice room" }
-    ]
+    rooms: [],
+    error: ""
   };
   componentDidMount() {
     this.fetchRooms();
@@ -46,6 +29,7 @@ class RoomOverview extends React.Component<Props, State> {
       this.setState({ rooms: result.data });
     } catch (error) {
       console.log(error);
+      this.setState({ error: error.message });
     }
   };
   render() {
@@ -55,10 +39,10 @@ class RoomOverview extends React.Component<Props, State> {
           return (
             <Grid item xs>
               <RoomView
-                roomType={room.roomType}
+                roomType={room.type}
                 price={room.price}
-                size={room.size}
-                roomDescription={room.roomDescription}
+                size={room.adults}
+                floor={room.floor}
               />
             </Grid>
           );
