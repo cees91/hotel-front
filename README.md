@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Install Node and NPM
+Please visit https://nodejs.org/en/ to download and install node (npm comes with it).
+After installing node and npm, navigate to the correct directory and type one of the following terminal commands.
+
 ## Available Scripts
 
 In the project directory, you can run:
