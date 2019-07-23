@@ -16,9 +16,18 @@ class App extends React.Component<Props, State> {
     return (
       <>
         <MenuBar />
-        <Grid container direction="row" justify="center" alignItems="center">
-          <RoomOverview />
-        </Grid>
+        <br />
+        <Container>
+          <Grid
+            container
+            spacing={3}
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <RoomOverview />
+          </Grid>
+        </Container>
       </>
     );
   }

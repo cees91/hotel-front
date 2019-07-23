@@ -1,20 +1,39 @@
 import React from "react";
 import RoomView from "./RoomView";
 import axios from "axios";
+import Grid from "@material-ui/core/Grid";
+
 interface Props {}
 interface State {
-  rooms: [
-    {
-      roomType: string;
-      price: number;
-      size: number;
-      roomDescription: string;
-    }
-  ];
+  rooms: Array<roomType>;
 }
+type roomType = {
+  roomType: string;
+  price: number;
+  size: number;
+  roomDescription: string;
+};
 class RoomOverview extends React.Component<Props, State> {
   state: State = {
     rooms: [
+      {
+        roomType: "bla",
+        price: 1,
+        size: 1,
+        roomDescription: "super nice room"
+      },
+      {
+        roomType: "bla",
+        price: 1,
+        size: 1,
+        roomDescription: "super nice room"
+      },
+      {
+        roomType: "bla",
+        price: 1,
+        size: 1,
+        roomDescription: "super nice room"
+      },
       { roomType: "bla", price: 1, size: 1, roomDescription: "super nice room" }
     ]
   };
@@ -31,18 +50,20 @@ class RoomOverview extends React.Component<Props, State> {
   };
   render() {
     return (
-      <div style={{ textAlign: "center", position: "relative", top: "50px" }}>
+      <>
         {this.state.rooms.map(room => {
           return (
-            <RoomView
-              roomType={room.roomType}
-              price={room.price}
-              size={room.size}
-              roomDescription={room.roomDescription}
-            />
+            <Grid item xs>
+              <RoomView
+                roomType={room.roomType}
+                price={room.price}
+                size={room.size}
+                roomDescription={room.roomDescription}
+              />
+            </Grid>
           );
         })}
-      </div>
+      </>
     );
   }
 }

@@ -47,6 +47,12 @@ const RoomView: React.FC<Props> = props => {
           <Typography variant="body2" color="textSecondary" component="p">
             {roomDescription}
           </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            &euro;{price},-
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Max people: {size}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
