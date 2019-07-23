@@ -5,14 +5,8 @@ import MenuBar from "../menu/MenuBar";
 import { Container } from "../styled-components/Container";
 import Grid from "@material-ui/core/Grid";
 
-interface Props {}
-interface State {}
-class App extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
+class App extends React.Component<object> {
+  public render(): React.ReactNode {
     return (
       <>
         <MenuBar />
@@ -25,7 +19,7 @@ class App extends React.Component<Props, State> {
             justify="center"
             alignItems="center"
           >
-            <RoomOverview />
+            <RoomOverview user="cees" />
           </Grid>
         </Container>
       </>

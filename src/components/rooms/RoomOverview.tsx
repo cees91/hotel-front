@@ -2,51 +2,57 @@ import React from "react";
 import RoomView from "./RoomView";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
-
-interface Props {}
+interface Props {
+  user: string;
+}
 interface State {
-  rooms: Array<roomType>;
+  rooms: RoomType[];
   error: string;
 }
-type roomType = {
+interface RoomType {
   type: string;
   floor: number;
   roomNumber: number;
   adults: number;
   price: number;
-};
+}
+interface RoomResponse {
+  data: RoomType[];
+}
 class RoomOverview extends React.Component<Props, State> {
-  state: State = {
+  public state: State = {
     rooms: [],
     error: ""
   };
-  componentDidMount() {
+  public componentDidMount(): void {
     this.fetchRooms();
   }
-  fetchRooms = async () => {
+  private fetchRooms = async (): Promise<void> => {
     try {
-      const result = await axios.get("/api/rooms");
-      this.setState({ rooms: result.data });
+      const { data }: RoomResponse = await axios.get("/api/rooms");
+      this.setState({ rooms: data });
     } catch (error) {
       console.log(error);
       this.setState({ error: error.message });
     }
   };
-  render() {
+  public render(): React.ReactNode {
     return (
       <>
-        {this.state.rooms.map(room => {
-          return (
-            <Grid item xs>
-              <RoomView
-                roomType={room.type}
-                price={room.price}
-                size={room.adults}
-                floor={room.floor}
-              />
-            </Grid>
-          );
-        })}
+        {this.state.rooms.map(
+          (room): React.ReactNode => {
+            return (
+              <Grid key={room.roomNumber} item xs>
+                <RoomView
+                  roomType={room.type}
+                  price={room.price}
+                  size={room.adults}
+                  floor={room.floor}
+                />
+              </Grid>
+            );
+          }
+        )}
       </>
     );
   }

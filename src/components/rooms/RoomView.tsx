@@ -21,14 +21,16 @@ const useStyles = makeStyles(
   })
 );
 
-type Props = {
+interface Props {
   roomType: string;
   price: number;
   size: number;
   floor: number;
-};
+}
 
-const RoomView: React.FC<Props> = props => {
+const RoomView: React.FunctionComponent<Props> = (
+  props: Props
+): JSX.Element => {
   const classes = useStyles();
   const { roomType, floor, price, size } = props;
 
