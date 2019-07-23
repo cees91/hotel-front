@@ -5,7 +5,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  color: #fff;
+`;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -37,13 +43,19 @@ export default function ButtonAppBar(): JSX.Element {
           </IconButton>
 
           <Typography variant="h6" className={classes.title}>
-            <Button color="inherit">Rooms</Button>
+            <StyledLink to="/rooms">
+              <Button color="inherit">Rooms</Button>
+            </StyledLink>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Button color="inherit">Booking</Button>
+            <StyledLink to="/bookings">
+              <Button color="inherit">Booking</Button>
+            </StyledLink>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Button color="inherit">Contact us</Button>
+            <StyledLink to="/contact">
+              <Button color="inherit">Contact us</Button>
+            </StyledLink>
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
