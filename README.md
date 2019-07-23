@@ -2,7 +2,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Install Node and NPM
 Please visit https://nodejs.org/en/ to download and install node (npm comes with it).
-After installing node and npm, navigate to the correct directory and type one of the following terminal commands.
+After installing node and npm, navigate to the correct directory and type the following terminal command:
+`npm install`
+
+This will install all dependencies and you can then start the application.
 
 ## Available Scripts
 
