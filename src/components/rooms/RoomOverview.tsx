@@ -4,16 +4,21 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 interface Props {
   user: string;
+  location: Location;
+}
+interface Location {
+  state: RoomType[];
 }
 interface State {
   rooms: RoomType[];
   error: string;
 }
-interface RoomType {
+export interface RoomType {
   type: string;
   floor: number;
   roomNumber: number;
   adults: number;
+  children: number;
   price: number;
 }
 interface RoomResponse {
@@ -25,14 +30,17 @@ class RoomOverview extends React.Component<Props, State> {
     error: ""
   };
   public componentDidMount(): void {
-    this.fetchRooms();
+    if (this.props.location.state && this.props.location.state.length > 0) {
+      this.setState({ rooms: this.props.location.state });
+    } else {
+      this.fetchRooms();
+    }
   }
   private fetchRooms = async (): Promise<void> => {
     try {
       const { data }: RoomResponse = await axios.get("/api/rooms");
       this.setState({ rooms: data });
     } catch (error) {
-      console.log(error);
       this.setState({ error: error.message });
     }
   };
@@ -46,7 +54,8 @@ class RoomOverview extends React.Component<Props, State> {
                 <RoomView
                   roomType={room.type}
                   price={room.price}
-                  size={room.adults}
+                  adults={room.adults}
+                  child={room.children}
                   floor={room.floor}
                 />
               </Grid>

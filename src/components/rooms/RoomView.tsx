@@ -24,7 +24,8 @@ const useStyles = makeStyles(
 interface Props {
   roomType: string;
   price: number;
-  size: number;
+  adults: number;
+  child: number;
   floor: number;
 }
 
@@ -32,7 +33,7 @@ const RoomView: React.FunctionComponent<Props> = (
   props: Props
 ): JSX.Element => {
   const classes = useStyles();
-  const { roomType, floor, price, size } = props;
+  const { roomType, floor, price, adults, child } = props;
 
   return (
     <Card className={classes.card}>
@@ -47,13 +48,15 @@ const RoomView: React.FunctionComponent<Props> = (
             {roomType}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This is a {roomType} room located on the {floor} floor.
+            This is a {roomType.toLowerCase()} room located on floor {floor}.
           </Typography>
+          <br />
           <Typography variant="body2" color="textSecondary" component="p">
-            &euro;{price},-
+            It costs &euro;{price},-.
           </Typography>
+          <br />
           <Typography variant="body2" color="textSecondary" component="p">
-            Max people: {size}
+            This room has capacity for {adults} adult(s) and {child} children.
           </Typography>
         </CardContent>
       </CardActionArea>

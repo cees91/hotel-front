@@ -41,12 +41,16 @@ export default function ButtonAppBar(): JSX.Element {
           >
             {/* <MenuIcon /> */}
           </IconButton>
-
           <Typography variant="h6" className={classes.title}>
+            <StyledLink to="/">
+              <Button color="inherit">Home</Button>
+            </StyledLink>
+          </Typography>
+          {/* <Typography variant="h6" className={classes.title}>
             <StyledLink to="/rooms">
               <Button color="inherit">Rooms</Button>
             </StyledLink>
-          </Typography>
+          </Typography> */}
           <Typography variant="h6" className={classes.title}>
             <StyledLink to="/bookings">
               <Button color="inherit">Booking</Button>
