@@ -7,7 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
+// import Axios from "axios";
+import RoomType from "./RoomOverview";
 const useStyles = makeStyles(
   createStyles({
     card: {
@@ -22,18 +23,23 @@ const useStyles = makeStyles(
 );
 
 interface Props {
-  roomType: string;
-  price: number;
-  adults: number;
-  child: number;
+  type: number;
   floor: number;
+  roomNumber: number;
+  adults: number;
+  children: number;
+  price: number;
+  id: number;
+  bookRoom: any;
 }
 
 const RoomView: React.FunctionComponent<Props> = (
   props: Props
 ): JSX.Element => {
   const classes = useStyles();
-  const { roomType, floor, price, adults, child } = props;
+  const { type, floor, price, adults, children, bookRoom } = props;
+
+  const roomTypes = ["single", "double", "two double", "penthouse"];
 
   return (
     <Card className={classes.card}>
@@ -45,10 +51,10 @@ const RoomView: React.FunctionComponent<Props> = (
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {roomType}
+            {roomTypes[type]}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This is a {roomType.toLowerCase()} room located on floor {floor}.
+            This is a {roomTypes[type]} room located on floor {floor}.
           </Typography>
           <br />
           <Typography variant="body2" color="textSecondary" component="p">
@@ -56,12 +62,13 @@ const RoomView: React.FunctionComponent<Props> = (
           </Typography>
           <br />
           <Typography variant="body2" color="textSecondary" component="p">
-            This room has capacity for {adults} adult(s) and {child} children.
+            This room has capacity for {adults} adult(s) and {children}{" "}
+            children.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={() => bookRoom(props)}>
           Book room
         </Button>
         <Button size="small" color="primary">

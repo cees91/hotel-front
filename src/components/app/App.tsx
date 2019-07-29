@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
+import axios from "axios";
 import RoomOverview from "../rooms/RoomOverview";
 import BookingOverview from "../bookings/BookingOverview";
 import Home from "../home/Home";
 import MenuBar from "../menu/MenuBar";
 import { Container } from "../styled-components/Container";
 import Grid from "@material-ui/core/Grid";
+import Filters from "../filters/Filters";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 interface Routes {
@@ -29,9 +31,11 @@ class App extends React.Component<object> {
       },
       { path: "/bookings", exact: false, component: BookingOverview }
     ];
+
     return (
       <Router>
         <MenuBar />
+        {/* <Filters getData={this.fetchData} /> */}
         <br />
         <Container>
           <Grid

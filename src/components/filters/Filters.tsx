@@ -25,7 +25,7 @@ export default function Filters(props: Props): JSX.Element {
     const formattedDate = new Intl.DateTimeFormat("en-GB").format(date);
     setParams({
       ...params,
-      [dateType]: formattedDate
+      [dateType]: date
     });
   };
   const handleAdults = (adults: number): void => {

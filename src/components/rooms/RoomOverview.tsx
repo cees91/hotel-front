@@ -7,19 +7,22 @@ interface Props {
   location: Location;
 }
 interface Location {
-  state: RoomType[];
+  state: State;
 }
+
 interface State {
   rooms: RoomType[];
   error: string;
+  dates: any;
 }
 export interface RoomType {
-  type: string;
+  type: number;
   floor: number;
   roomNumber: number;
   adults: number;
   children: number;
   price: number;
+  id: number;
 }
 interface RoomResponse {
   data: RoomType[];
@@ -27,11 +30,15 @@ interface RoomResponse {
 class RoomOverview extends React.Component<Props, State> {
   public state: State = {
     rooms: [],
-    error: ""
+    error: "",
+    dates: {}
   };
   public componentDidMount(): void {
-    if (this.props.location.state && this.props.location.state.length > 0) {
-      this.setState({ rooms: this.props.location.state });
+    if (this.props.location.state) {
+      this.setState({
+        rooms: this.props.location.state.rooms,
+        dates: this.props.location.state.dates
+      });
     } else {
       this.fetchRooms();
     }
@@ -44,20 +51,27 @@ class RoomOverview extends React.Component<Props, State> {
       this.setState({ error: error.message });
     }
   };
+  public bookRoom = async (room: any): Promise<void> => {
+    try {
+      const roomToBook = { ...room };
+      delete roomToBook.bookRoom;
+      roomToBook.startDate = this.state.dates.startDate;
+      roomToBook.endDate = this.state.dates.endDate;
+      console.log(JSON.stringify(roomToBook));
+
+      await axios.post("/api/rooms/bookroom", roomToBook);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   public render(): React.ReactNode {
     return (
       <>
         {this.state.rooms.map(
           (room): React.ReactNode => {
             return (
-              <Grid key={room.roomNumber} item xs>
-                <RoomView
-                  roomType={room.type}
-                  price={room.price}
-                  adults={room.adults}
-                  child={room.children}
-                  floor={room.floor}
-                />
+              <Grid key={room.id} item xs>
+                <RoomView {...room} bookRoom={this.bookRoom} />
               </Grid>
             );
           }
