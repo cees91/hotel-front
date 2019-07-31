@@ -15,21 +15,18 @@ class Home extends React.Component<Props, State> {
   };
   public fetchData = async (params: any): Promise<void> => {
     try {
-      console.log(params);
       const result = await axios.get("/api/rooms/findrooms", { params });
       console.log(result);
       this.props.history.push({
         pathname: "/rooms",
         state: {
           rooms: result.data,
-          dates: {
-            startDate: params.startDate,
-            endDate: params.endDate
-          }
+          filters: params
         }
       });
     } catch (error) {
       console.log(error);
+      console.log(error.response.data);
     }
   };
   public render(): React.ReactNode {

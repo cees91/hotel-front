@@ -1,41 +1,50 @@
+//  // <---- put this at the very top of your js file
+
 import React from "react";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker
-} from "@material-ui/pickers";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+import "./react-dates-override.css";
+import { DateRangePicker } from "react-dates";
+
+import moment from "moment";
 
 interface Props {
-  text: string;
   hoistDate: any;
 }
-const Dates = (props: Props): JSX.Element => {
-  const { text, hoistDate } = props;
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date()
-  );
-  function handleDateChange(date: Date | null): void {
-    setSelectedDate(date);
-    const type = text === "Start date" ? "startDate" : "endDate";
-    hoistDate(date, type);
-  }
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <div>
-        <KeyboardDatePicker
-          margin="normal"
-          id="mui-pickers-date"
-          label={text}
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            "aria-label": "change date"
-          }}
+interface State {
+  startDate: moment.Moment | null;
+  endDate: moment.Moment | null;
+  focusedInput: "startDate" | "endDate" | null;
+}
+interface Dates {
+  startDate: moment.Moment | null;
+  endDate: moment.Moment | null;
+}
+class Dates extends React.Component<Props, State> {
+  public state: State = {
+    startDate: moment().startOf("day"),
+    endDate: moment()
+      .startOf("day")
+      .add(1, "days"),
+    focusedInput: null
+  };
+  public render(): JSX.Element {
+    return (
+      <>
+        <DateRangePicker
+          startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+          startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+          endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+          endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+          onDatesChange={({ startDate, endDate }): void => {
+            this.setState({ startDate, endDate });
+            this.props.hoistDate(startDate, endDate);
+          }} // PropTypes.func.isRequired,
+          focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+          onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
         />
-        {/* </Grid> */}
-      </div>
-    </MuiPickersUtilsProvider>
-  );
-};
+      </>
+    );
+  }
+}
 export default Dates;

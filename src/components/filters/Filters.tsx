@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 
 const FilterContainer = styled.div`
-  max-width: 1580px;
+  max-width: 1700px;
   margin: 0 auto;
 `;
 interface Props {
@@ -17,15 +17,19 @@ interface Props {
 export default function Filters(props: Props): JSX.Element {
   const { getData } = props;
   const [params, setParams] = React.useState({
-    startDate: "",
-    endDate: "",
+    startDate: new Intl.DateTimeFormat("en-GB").format(new Date()),
+    endDate: new Intl.DateTimeFormat("en-GB").format(new Date()),
     adults: 1
   });
-  const handleDate = (date: Date, dateType: string): void => {
-    const formattedDate = new Intl.DateTimeFormat("en-GB").format(date);
+  const handleDate = (startDate: Date, endDate: Date): void => {
+    const formattedStartDate = new Intl.DateTimeFormat("en-GB").format(
+      startDate
+    );
+    const formattedEndDate = new Intl.DateTimeFormat("en-GB").format(endDate);
     setParams({
       ...params,
-      [dateType]: date
+      startDate: formattedStartDate,
+      endDate: formattedEndDate
     });
   };
   const handleAdults = (adults: number): void => {
@@ -43,17 +47,13 @@ export default function Filters(props: Props): JSX.Element {
         justify="center"
         alignItems="center"
       >
-        <Grid item xs>
+        <Grid item xs={3}>
           <GuestSelector handleAdults={handleAdults} />
         </Grid>
-        <Grid item xs>
-          <Dates text="Start date" hoistDate={handleDate} />
+        <Grid item xs={8}>
+          <Dates hoistDate={handleDate} />
         </Grid>
-
-        <Grid item xs>
-          <Dates text="End date" hoistDate={handleDate} />
-        </Grid>
-        <Grid item xs>
+        <Grid item xs={1}>
           <Button
             variant="contained"
             color="primary"

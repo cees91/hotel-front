@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 interface Props {
   user: string;
   location: Location;
+  history: any;
 }
 interface Location {
   state: State;
@@ -13,7 +14,7 @@ interface Location {
 interface State {
   rooms: RoomType[];
   error: string;
-  dates: any;
+  filters: any;
 }
 export interface RoomType {
   type: number;
@@ -31,13 +32,13 @@ class RoomOverview extends React.Component<Props, State> {
   public state: State = {
     rooms: [],
     error: "",
-    dates: {}
+    filters: {}
   };
   public componentDidMount(): void {
     if (this.props.location.state) {
       this.setState({
         rooms: this.props.location.state.rooms,
-        dates: this.props.location.state.dates
+        filters: this.props.location.state.filters
       });
     } else {
       this.fetchRooms();
@@ -45,7 +46,9 @@ class RoomOverview extends React.Component<Props, State> {
   }
   private fetchRooms = async (): Promise<void> => {
     try {
-      const { data }: RoomResponse = await axios.get("/api/rooms");
+      const { data }: RoomResponse = await axios.get("/api/rooms/findrooms", {
+        params: this.state.filters
+      });
       this.setState({ rooms: data });
     } catch (error) {
       this.setState({ error: error.message });
@@ -55,11 +58,16 @@ class RoomOverview extends React.Component<Props, State> {
     try {
       const roomToBook = { ...room };
       delete roomToBook.bookRoom;
-      roomToBook.startDate = this.state.dates.startDate;
-      roomToBook.endDate = this.state.dates.endDate;
-      console.log(JSON.stringify(roomToBook));
-
+      roomToBook.startDate = this.state.filters.startDate;
+      roomToBook.endDate = this.state.filters.endDate;
+      this.props.history.push({
+        pathname: "/bookings",
+        state: {
+          room: roomToBook
+        }
+      });
       await axios.post("/api/rooms/bookroom", roomToBook);
+      this.fetchRooms();
     } catch (error) {
       console.log(error);
     }
