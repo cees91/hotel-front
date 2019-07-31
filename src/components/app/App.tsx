@@ -1,29 +1,46 @@
 import React from "react";
 import "./App.css";
+
 import RoomOverview from "../rooms/RoomOverview";
 import BookingOverview from "../bookings/BookingOverview";
+import Home from "../home/Home";
 import MenuBar from "../menu/MenuBar";
-import { Container } from "../styled-components/Container";
+import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+
 interface Routes {
   path: string;
+  exact: boolean;
   component: any;
 }
-class App extends React.Component<object> {
+interface State {}
+class App extends React.Component<object, State> {
+  public state: State = {};
+  public hoistDate = () => {};
   public render(): React.ReactNode {
     const routes: Routes[] = [
       {
+        path: "/",
+        exact: true,
+        component: Home
+      },
+      {
         path: "/rooms",
+        exact: false,
+
         component: RoomOverview
       },
-      { path: "/bookings", component: BookingOverview }
+      { path: "/bookings", exact: false, component: BookingOverview }
     ];
+
     return (
       <Router>
         <MenuBar />
+        {/* <Filters getData={this.fetchData} /> */}
         <br />
+
         <Container>
           <Grid
             container
@@ -38,13 +55,13 @@ class App extends React.Component<object> {
                   return (
                     <Route
                       path={route.path}
+                      exact={route.exact}
                       component={route.component}
                       key={route.path}
                     />
                   );
                 }
               )}
-              {/* <RoomOverview user="cees" /> */}
             </Switch>
           </Grid>
         </Container>
