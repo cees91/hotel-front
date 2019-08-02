@@ -13,11 +13,14 @@ interface Location {
 
 interface State {
   rooms: RoomType[];
+  roomTypes: RoomType[];
   error: string;
   filters: any;
+  totalRooms: number[];
+  [x: string]: any;
 }
 export interface RoomType {
-  type: number;
+  type: string;
   floor: number;
   roomNumber: number;
   adults: number;
@@ -31,24 +34,57 @@ interface RoomResponse {
 class RoomOverview extends React.Component<Props, State> {
   public state: State = {
     rooms: [],
+    totalRooms: [0, 0, 0, 0],
+    roomTypes: [],
     error: "",
-    filters: {}
+    filters: this.props.location.state.filters,
+    filteredRooms: []
   };
   public componentDidMount(): void {
+    this.fetchTotal();
+    this.fetchRooms();
+
     if (this.props.location.state) {
       this.setState({
         rooms: this.props.location.state.rooms,
         filters: this.props.location.state.filters
       });
-    } else {
-      this.fetchRooms();
     }
   }
+  private fetchTotal = async (): Promise<void> => {
+    try {
+      const { data }: RoomResponse = await axios.get("/api/rooms/all");
+      this.sortRooms(data, "totalRooms");
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
+  };
+  private sortRooms = (data: any, type: string): void => {
+    const singleRooms = data.filter((room: any) => room.type === "Single");
+    const doubleRooms = data.filter((room: any) => room.type === "Double");
+    const twoDouble = data.filter((room: any) => room.type === "TwoDouble");
+    const pentHouse = data.filter((room: any) => room.type === "Penthouse");
+    const rooms = [
+      singleRooms.length,
+      doubleRooms.length,
+      twoDouble.length,
+      pentHouse.length
+    ];
+    const roomTypes = [
+      singleRooms[0],
+      doubleRooms[0],
+      twoDouble[0],
+      pentHouse[0]
+    ];
+    console.log(rooms);
+    this.setState({ [type]: rooms, roomTypes });
+  };
   private fetchRooms = async (): Promise<void> => {
     try {
       const { data }: RoomResponse = await axios.get("/api/rooms/findrooms", {
         params: this.state.filters
       });
+      this.sortRooms(data, "filteredRooms");
       this.setState({ rooms: data });
     } catch (error) {
       this.setState({ error: error.message });
@@ -75,11 +111,16 @@ class RoomOverview extends React.Component<Props, State> {
   public render(): React.ReactNode {
     return (
       <>
-        {this.state.rooms.map(
-          (room): React.ReactNode => {
+        {this.state.roomTypes.map(
+          (room, i): React.ReactNode => {
             return (
-              <Grid key={room.id} item xs>
-                <RoomView {...room} bookRoom={this.bookRoom} />
+              <Grid key={room.id} item xs={6}>
+                <RoomView
+                  {...room}
+                  totalRooms={this.state.totalRooms[i]}
+                  roomsLeft={this.state.filteredRooms[i]}
+                  bookRoom={this.bookRoom}
+                />
               </Grid>
             );
           }

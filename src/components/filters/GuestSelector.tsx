@@ -35,7 +35,6 @@ const GuestSelector = (props: Props): JSX.Element => {
     handleAdults(Number(event.target.value));
   };
   return (
-    // <div>
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor="age-helper">Adults: </InputLabel>
       <Select

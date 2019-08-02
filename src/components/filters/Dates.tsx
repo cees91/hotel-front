@@ -40,6 +40,7 @@ class Dates extends React.Component<Props, State> {
             this.setState({ startDate, endDate });
             this.props.hoistDate(startDate, endDate);
           }} // PropTypes.func.isRequired,
+          displayFormat={"DD/MM/YYYY"}
           focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
         />

@@ -17,7 +17,7 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  type: number;
+  type: string;
   floor: number;
   roomNumber: number;
   adults: number;
@@ -25,6 +25,8 @@ interface Props {
   price: number;
   id: number;
   bookRoom: any;
+  totalRooms: number;
+  roomsLeft: number;
 }
 const Transition = React.forwardRef<unknown, TransitionProps>(
   function Transition(props, ref) {
@@ -80,10 +82,11 @@ const RoomView: React.FunctionComponent<Props> = (
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {roomTypes[type]}
+              {type}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              This is a {roomTypes[type]} room located on floor {floor}.
+              This is a {type} room located on floor {floor}. Rooms left:{" "}
+              {props.roomsLeft} / {props.totalRooms}
             </Typography>
             <br />
             <Typography variant="body2" color="textSecondary" component="p">
@@ -122,7 +125,7 @@ const RoomView: React.FunctionComponent<Props> = (
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              {roomTypes[type]}
+              {type}
             </Typography>
             <Button color="inherit" onClick={handleClose}>
               Book

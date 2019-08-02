@@ -9,7 +9,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
 interface Routes {
   path: string;
   exact: boolean;
