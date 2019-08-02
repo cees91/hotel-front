@@ -82,7 +82,7 @@ const RoomView: React.FunctionComponent<Props> = (
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {type}
+              {type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               This is a {type} room located on floor {floor}. Rooms left:{" "}
@@ -100,9 +100,9 @@ const RoomView: React.FunctionComponent<Props> = (
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => bookRoom(props)}>
+          {/* <Button size="small" color="primary" onClick={() => bookRoom(props)}>
             Book room
-          </Button>
+          </Button> */}
           <Button size="small" color="primary" onClick={handleClickOpen}>
             View room details
           </Button>
@@ -127,7 +127,12 @@ const RoomView: React.FunctionComponent<Props> = (
             <Typography variant="h6" className={classes.title}>
               {type}
             </Typography>
-            <Button color="inherit" onClick={handleClose}>
+            <Button
+              color="inherit"
+              onClick={() => {
+                bookRoom(props);
+              }}
+            >
               Book
             </Button>
           </Toolbar>

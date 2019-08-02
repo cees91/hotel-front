@@ -7,6 +7,8 @@ import Home from "../home/Home";
 import MenuBar from "../menu/MenuBar";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Register from "../register/register";
+import Login from "../register/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 interface Routes {
@@ -31,6 +33,12 @@ class App extends React.Component<object, State> {
 
         component: RoomOverview
       },
+      {
+        path: "/login",
+        exact: false,
+        component: Login
+      },
+      { path: "/register", exact: false, component: Register },
       { path: "/bookings", exact: false, component: BookingOverview }
     ];
 

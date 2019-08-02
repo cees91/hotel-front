@@ -41,8 +41,7 @@ class RoomOverview extends React.Component<Props, State> {
     filteredRooms: []
   };
   public componentDidMount(): void {
-    this.fetchTotal();
-    this.fetchRooms();
+    this.fetchAll();
 
     if (this.props.location.state) {
       this.setState({
@@ -51,6 +50,10 @@ class RoomOverview extends React.Component<Props, State> {
       });
     }
   }
+  private fetchAll = () => {
+    this.fetchTotal();
+    this.fetchRooms();
+  };
   private fetchTotal = async (): Promise<void> => {
     try {
       const { data }: RoomResponse = await axios.get("/api/rooms/all");
@@ -103,7 +106,7 @@ class RoomOverview extends React.Component<Props, State> {
         }
       });
       await axios.post("/api/rooms/bookroom", roomToBook);
-      this.fetchRooms();
+      this.fetchAll();
     } catch (error) {
       console.log(error);
     }

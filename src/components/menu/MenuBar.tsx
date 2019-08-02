@@ -61,7 +61,9 @@ export default function ButtonAppBar(): JSX.Element {
               <Button color="inherit">Contact us</Button>
             </StyledLink>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">
+            <StyledLink to="/login">Login</StyledLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

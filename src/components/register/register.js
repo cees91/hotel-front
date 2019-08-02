@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import "./styles.css";
 
-class App extends Component {
-  render() {
-    return <Register />;
-  }
-}
-
 const validate = ({
   firstName,
   lastName,
@@ -171,5 +165,4 @@ class Register extends React.Component {
     );
   }
 }
-
-render(<App />, document.getElementById("root"));
+export default Register;
