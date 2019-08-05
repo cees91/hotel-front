@@ -1,5 +1,5 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 const Welcome = ({ user, onSignOut }) => {
   // This is a dumb "stateless" component
   return (
@@ -24,12 +24,28 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSignIn.bind(this)}>
-        <h3>Sign in</h3>
-        <input type="text" ref="username" placeholder="enter you username" />
-        <input type="password" ref="password" placeholder="enter password" />
-        <input type="submit" value="Login" />
-      </form>
+      <>
+        <form onSubmit={this.handleSignIn.bind(this)}>
+          <h3>Sign in</h3>
+          <input
+            type="text"
+            ref="username"
+            placeholder="enter you username"
+            name="username"
+          />
+          <input
+            type="password"
+            ref="password"
+            placeholder="enter password"
+            name="password"
+          />
+          <input type="submit" value="Login" />
+          <br />
+        </form>
+        <NavLink style={{ textAlign: "center" }} to="/register">
+          Or sign up for an account
+        </NavLink>
+      </>
     );
   }
 }
@@ -47,12 +63,25 @@ class Login extends React.Component {
   signIn(username, password) {
     // This is where you would call Firebase, an API etc...
     // calling setState will re-render the entire app (efficiently!)
-    this.setState({
-      user: {
-        username,
-        password
-      }
-    });
+    const storage = localStorage.getItem("user");
+    const user = JSON.parse(storage);
+    if (user && user.email === username && user.password === password) {
+      this.setState(
+        {
+          user: {
+            username,
+            password
+          }
+        },
+        () => {
+          localStorage.setItem("loggedInUser", JSON.stringify(user));
+          this.props.history.push("/bookings");
+          window.location.reload();
+        }
+      );
+    } else {
+      console.log(`incorrect:`, user);
+    }
   }
 
   signOut() {

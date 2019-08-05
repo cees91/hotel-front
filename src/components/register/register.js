@@ -49,16 +49,35 @@ class Register extends React.Component {
   handleSubmit = event => {
     // event.preventDefault();
     if (!this.isValidated()) {
-      return;
+      const {
+        firstName,
+        lastName,
+        address,
+        houseNumber,
+        postcode,
+        city,
+        email,
+        password
+      } = this.state;
+      const user = {
+        firstName,
+        lastName,
+        address,
+        houseNumber,
+        postcode,
+        city,
+        email,
+        password
+      };
+      localStorage.setItem("user", JSON.stringify(user));
+      this.props.history.push("/login");
     }
   };
 
   isValidated() {
     const errors = validate(this.state);
     const isError = Object.keys(errors).filter(key => errors[key]);
-    console.log(isError);
     if (isError.length > 0) {
-      console.log("errorrr");
       this.setState({
         error: true,
         message: `Please fill in ${isError.map(
@@ -67,6 +86,7 @@ class Register extends React.Component {
       });
       return true;
     }
+    return false;
   }
 
   render() {

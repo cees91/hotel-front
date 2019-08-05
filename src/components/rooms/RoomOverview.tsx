@@ -99,6 +99,7 @@ class RoomOverview extends React.Component<Props, State> {
       delete roomToBook.bookRoom;
       roomToBook.startDate = this.state.filters.startDate;
       roomToBook.endDate = this.state.filters.endDate;
+      localStorage.setItem("room", JSON.stringify(roomToBook));
       this.props.history.push({
         pathname: "/bookings",
         state: {
