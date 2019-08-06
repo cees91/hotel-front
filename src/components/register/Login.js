@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 
 const Welcome = ({ user, onSignOut }) => {
   // This is a dumb "stateless" component

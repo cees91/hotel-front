@@ -2,15 +2,19 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import "./styles.css";
 
+
+
 const validate = ({
   firstName,
   lastName,
   email,
   password,
+  password_check,
   address,
   houseNumber,
   postcode,
-  city
+  city,
+  phoneNumber
 }) => {
   return {
     firstName: firstName.length === 0,
@@ -20,7 +24,9 @@ const validate = ({
     postcode: postcode.length === 0,
     city: city.length === 0,
     email: email.length === 0,
-    password: password.length === 0
+    password: password.length === 0,
+    password_check: password.length === 0,
+    phoneNumber: phoneNumber.length === 0
   };
 };
 
@@ -36,11 +42,22 @@ class Register extends React.Component {
       city: "",
       email: "",
       password: "",
+      password_check: "",
+      phoneNumber: "",
       isValidated: false,
       error: false,
       message: ""
     };
   }
+
+  checkPassword() {
+    if(!this.state.password || this.state.password != this.state.password_check) {
+       this.setState({password_has_error:true});
+   }
+   else {
+       this.setState({password_has_error:false});
+   }
+}
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value, error: false });
@@ -50,6 +67,9 @@ class Register extends React.Component {
     // event.preventDefault();
     if (!this.isValidated()) {
       return;
+    }
+    if (event.target.name == 'password' || event.target.name == 'password_check'){
+      this.checkPassword();
     }
   };
 
@@ -129,6 +149,15 @@ class Register extends React.Component {
               noValidate
             />
           </div>
+          <div className="phoneNumber">
+            <label htmlFor="phoneNumber">PhoneNumber</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              onChange={this.handleChange}
+              noValidate
+            />
+          </div>
           <div className="email">
             <label htmlFor="email">Email</label>
             <input
@@ -147,8 +176,19 @@ class Register extends React.Component {
               noValidate
             />
           </div>
+          <div className="password_check">
+            <label htmlFor="password">Re-enter password</label>
+            <input
+              type="password"
+              name="password_check"
+              onChange={this.handleChange}
+              noValidate
+            />
+          </div>
           <div className="info">
-            <small>Password must be eight characters in length.</small>
+            <small>Password must be eight characters in length and contain the following characters:<br/>
+            At least one uppercase, one lower case, one number and a special character.
+              </small>
           </div>
           {this.state.error ? <div>{this.state.message}</div> : null}
           <div className="submit">
