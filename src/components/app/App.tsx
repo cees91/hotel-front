@@ -11,6 +11,7 @@ import Register from "../register/register";
 import Login from "../register/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Logout from "../register/Logout";
+import Config from "../config/Config";
 interface Routes {
   path: string;
   exact: boolean;
@@ -25,6 +26,11 @@ class App extends React.Component<object, State> {
         path: "/",
         exact: true,
         component: Home
+      },
+      {
+        path: "/edit",
+        exact: false,
+        component: Config
       },
       {
         path: "/rooms",
