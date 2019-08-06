@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 interface Props {
   any: any;
   location: any;
@@ -27,15 +28,17 @@ class BookingOverview extends React.Component<Props, State> {
 
     const storage = localStorage.getItem("loggedInUser");
     if (storage && roomStorage) {
-      console.log(storage);
       const room = JSON.parse(roomStorage);
       const user = JSON.parse(storage);
       this.setState({ user, currentBooking: room });
     }
   }
-  checkLogin = async () => {};
-  handleClickOpen = () => {
+
+  handleBooking = async () => {
     alert("room booked!");
+    try {
+      // await axios.post("/api/booking",  )
+    } catch (error) {}
   };
   public render(): React.ReactNode {
     if (!this.state.user.email) {
@@ -45,13 +48,19 @@ class BookingOverview extends React.Component<Props, State> {
           <NavLink to="/register">register</NavLink> for an account
         </div>
       );
-    } else if (this.state.currentBooking) {
+    } else if (this.state.currentBooking[0]) {
       return (
         <div>
-          <img src={`${this.state.currentBooking.type}.jpeg`} />
+          <img src={`${this.state.currentBooking[0].type}.jpeg`} />
           <br />
-          BOOK ROOM type: {this.state.currentBooking.type} <br />
-          id:{this.state.currentBooking.id} <br />
+          <h2>
+            Please review the booking details and confirm the booking by
+            pressing the 'book now' button
+          </h2>
+          BOOK ROOM type: {this.state.currentBooking[0].type} <br />
+          Amount of rooms: {this.state.currentBooking.length} <br />
+          dates: {this.state.currentBooking[0].startDate} -{" "}
+          {this.state.currentBooking[0].endDate}
           <br />
           user:{" "}
           {Object.keys(this.state.user).map(property => {
@@ -63,7 +72,9 @@ class BookingOverview extends React.Component<Props, State> {
                   component="p"
                   key={property}
                 >
-                  {property}: {this.state.user[property]}
+                  {property.slice(0, 1).toUpperCase() +
+                    property.slice(1).toLowerCase()}
+                  : {this.state.user[property]}
                 </Typography>
               );
             }
@@ -72,7 +83,7 @@ class BookingOverview extends React.Component<Props, State> {
             size="small"
             color="primary"
             variant="contained"
-            onClick={this.handleClickOpen}
+            onClick={this.handleBooking}
           >
             Book room
           </Button>
