@@ -70,14 +70,14 @@ const RoomView: React.FunctionComponent<Props> = (
   function handleClose() {
     setOpen(false);
   }
-
+  console.log(type);
   return (
     <>
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/download.jpg"
+            image={`/${type}.jpeg`}
             title="Contemplative Reptile"
           />
           <CardContent>
@@ -85,14 +85,14 @@ const RoomView: React.FunctionComponent<Props> = (
               {type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              This is a {type} room located on floor {floor}. Rooms left:{" "}
+              This is a {type} room located on floor {floor}.<br /> Rooms left:{" "}
               {props.roomsLeft} / {props.totalRooms}
             </Typography>
             <br />
-            <Typography variant="body2" color="textSecondary" component="p">
-              It costs &euro;{price},-.
-            </Typography>
-            <br />
+            {/* <Typography variant="body2" color="textSecondary" component="p">
+                It costs &euro;{price},-.
+              </Typography>
+              <br /> */}
             <Typography variant="body2" color="textSecondary" component="p">
               This room has capacity for {adults} adult(s) and {children}{" "}
               children.
@@ -147,7 +147,7 @@ const RoomView: React.FunctionComponent<Props> = (
           <Grid item xs={2}>
             <CardMedia
               className={classes.media}
-              image="/download.jpg"
+              image={`/${type}.jpeg`}
               title="Contemplative Reptile"
             />
           </Grid>

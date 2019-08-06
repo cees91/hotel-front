@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Register from "../register/register";
 import Login from "../register/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import Logout from "../register/Logout";
 interface Routes {
   path: string;
   exact: boolean;
@@ -19,7 +19,6 @@ interface Routes {
 interface State {}
 class App extends React.Component<object, State> {
   public state: State = {};
-  public hoistDate = () => {};
   public render(): React.ReactNode {
     const routes: Routes[] = [
       {
@@ -32,6 +31,11 @@ class App extends React.Component<object, State> {
         exact: false,
 
         component: RoomOverview
+      },
+      {
+        path: "/logout",
+        exact: false,
+        component: Logout
       },
       {
         path: "/login",
@@ -48,7 +52,7 @@ class App extends React.Component<object, State> {
         {/* <Filters getData={this.fetchData} /> */}
         <br />
 
-        <Container>
+        <Container style={{ textAlign: "center" }}>
           <Grid
             container
             spacing={3}
