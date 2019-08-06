@@ -3,6 +3,10 @@ div {
   font-family: Lato;
 }
 
+div.confirmation {
+  font-family: Lato;
+}
+
 /* 
   Colors:
   https://coolors.co/22223b-4a4e69-eadae4-9a8c98-c9ada7 
@@ -109,7 +113,9 @@ button:hover {
 .postcode,
 .city,
 .email,
-.password {
+.password,
+.password_check,
+.phoneNumber {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -118,7 +124,9 @@ button:hover {
 .firstName,
 .lastName,
 .address,
-.city {
+.city, 
+
+.phoneNumber {
   width: 100%;
 }
 
@@ -128,7 +136,8 @@ button:hover {
 }
 
 .email,
-.password {
+.password,
+.password_check {
   width: 100%;
 }
 

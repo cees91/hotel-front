@@ -56,7 +56,7 @@ export default function ButtonAppBar(): JSX.Element {
           </IconButton> */}
           {loggedIn.email ? (
             <Typography variant="h6" className={classes.title}>
-              welcome {loggedIn.firstName}
+              Welcome {loggedIn.firstName}
             </Typography>
           ) : null}
           <Typography variant="h6" className={classes.title}>

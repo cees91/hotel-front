@@ -30,6 +30,7 @@ class BookingOverview extends React.Component<Props, State> {
     if (storage && roomStorage) {
       const room = JSON.parse(roomStorage);
       const user = JSON.parse(storage);
+      console.log(user)
       this.setState({ user, currentBooking: room });
     }
   }

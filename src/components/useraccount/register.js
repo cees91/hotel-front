@@ -51,11 +51,13 @@ class Register extends React.Component {
   }
 
   checkPassword() {
-    if(!this.state.password || this.state.password != this.state.password_check) {
+    if(!this.state.password || this.state.password !== this.state.password_check) {
        this.setState({password_has_error:true});
+       return false;
    }
    else {
        this.setState({password_has_error:false});
+       return true;
    }
 }
 
@@ -74,8 +76,10 @@ class Register extends React.Component {
         postcode,
         city,
         email,
-        password
+        password,
+        password_check
       } = this.state;
+      if(this.checkPassword()){
       const user = {
         firstName,
         lastName,
@@ -87,11 +91,11 @@ class Register extends React.Component {
         password
       };
       localStorage.setItem("user", JSON.stringify(user));
-      this.props.history.push("/login");
+      this.props.history.push("/confirmation");
     }
-    if (event.target.name == 'password' || event.target.name == 'password_check'){
-      this.checkPassword();
     }
+  
+  
   };
 
   isValidated() {
@@ -170,7 +174,7 @@ class Register extends React.Component {
             />
           </div>
           <div className="phoneNumber">
-            <label htmlFor="phoneNumber">PhoneNumber</label>
+            <label htmlFor="phoneNumber">Phone Number</label>
             <input
               type="text"
               name="phoneNumber"
