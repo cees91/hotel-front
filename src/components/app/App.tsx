@@ -7,11 +7,15 @@ import Home from "../home/Home";
 import MenuBar from "../menu/MenuBar";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import Register from "../register/register";
-import Login from "../register/Login";
+import Register from "../useraccount/register";
+import Login from "../useraccount/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Logout from "../register/Logout";
 import Confirmation from "../confirmation/Confirmation";
+import Logout from "../useraccount/Logout";
+import ConfirmationBooking from "../useraccount/Confirmation";
+import Userprofile from "../useraccount/Userprofile";
+import Contact from "../contact/Contact";
+
 interface Routes {
   path: string;
   exact: boolean;
@@ -43,6 +47,22 @@ class App extends React.Component<object, State> {
         exact: false,
         component: Login
       },
+      {
+        path: "/confirmation",
+        exact: false,
+        component: ConfirmationBooking
+      },
+      {
+        path: "/userprofile",
+        exact: false,
+        component: Userprofile
+      },
+      {
+        path: "/contact",
+        exact: false,
+        component: Contact
+      },
+
       { path: "/register", exact: false, component: Register },
       { path: "/bookings", exact: false, component: BookingOverview },
       { path: "/confirmation", exact: false, component: Confirmation }

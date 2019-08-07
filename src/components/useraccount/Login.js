@@ -1,5 +1,7 @@
 import React from "react";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
+
 const Welcome = ({ user, onSignOut }) => {
   // This is a dumb "stateless" component
   return (
@@ -42,6 +44,7 @@ class LoginForm extends React.Component {
           <input type="submit" value="Login" />
           <br />
         </form>
+        <br/>
         <NavLink style={{ textAlign: "center" }} to="/register">
           Or sign up for an account
         </NavLink>
@@ -75,7 +78,7 @@ class Login extends React.Component {
         },
         () => {
           localStorage.setItem("loggedInUser", JSON.stringify(user));
-          this.props.history.push("/bookings");
+          this.props.history.push("/userprofile");
           window.location.reload();
         }
       );
