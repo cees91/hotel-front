@@ -11,6 +11,7 @@ import Register from "../register/register";
 import Login from "../register/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Logout from "../register/Logout";
+import Confirmation from "../confirmation/Confirmation";
 interface Routes {
   path: string;
   exact: boolean;
@@ -43,11 +44,12 @@ class App extends React.Component<object, State> {
         component: Login
       },
       { path: "/register", exact: false, component: Register },
-      { path: "/bookings", exact: false, component: BookingOverview }
+      { path: "/bookings", exact: false, component: BookingOverview },
+      { path: "/confirmation", exact: false, component: Confirmation }
     ];
 
     return (
-      <Router>
+      <>
         <MenuBar />
         {/* <Filters getData={this.fetchData} /> */}
         <br />
@@ -76,7 +78,7 @@ class App extends React.Component<object, State> {
             </Switch>
           </Grid>
         </Container>
-      </Router>
+      </>
     );
   }
 }
