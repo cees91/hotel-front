@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Logout from "../useraccount/Logout";
 import Confirmation from "../useraccount/Confirmation";
 import Userprofile from "../useraccount/Userprofile";
+import Contact from "../contact/Contact";
 
 interface Routes {
   path: string;
@@ -54,6 +55,11 @@ class App extends React.Component<object, State> {
         path: "/userprofile",
         exact: false,
         component: Userprofile
+      },
+      {
+        path: "/contact",
+        exact: false,
+        component: Contact
       },
 
       { path: "/register", exact: false, component: Register },

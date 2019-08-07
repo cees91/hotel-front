@@ -1,8 +1,26 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import "./styles.css";
+import PasswordInput from "../password/PasswordInput";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 
+import SendIcon from "@material-ui/icons/Send";
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1)
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1)
+  },
+  iconSmall: {
+    fontSize: 20
+  }
+}));
 
 const validate = ({
   firstName,
@@ -51,15 +69,17 @@ class Register extends React.Component {
   }
 
   checkPassword() {
-    if(!this.state.password || this.state.password !== this.state.password_check) {
-       this.setState({password_has_error:true});
-       return false;
-   }
-   else {
-       this.setState({password_has_error:false});
-       return true;
-   }
-}
+    if (
+      !this.state.password ||
+      this.state.password !== this.state.password_check
+    ) {
+      this.setState({ password_has_error: true });
+      return false;
+    } else {
+      this.setState({ password_has_error: false });
+      return true;
+    }
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value, error: false });
@@ -79,23 +99,21 @@ class Register extends React.Component {
         password,
         password_check
       } = this.state;
-      if(this.checkPassword()){
-      const user = {
-        firstName,
-        lastName,
-        address,
-        houseNumber,
-        postcode,
-        city,
-        email,
-        password
-      };
-      localStorage.setItem("user", JSON.stringify(user));
-      this.props.history.push("/confirmation");
+      if (this.checkPassword()) {
+        const user = {
+          firstName,
+          lastName,
+          address,
+          houseNumber,
+          postcode,
+          city,
+          email,
+          password
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+        this.props.history.push("/confirmation");
+      }
     }
-    }
-  
-  
   };
 
   isValidated() {
@@ -115,115 +133,133 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
-        <div className="form-wrapper">
-          <h2>Register</h2>
-          {/* <form noValidate> */}
-          <div className="firstName">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="lastName">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="address">
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              name="address"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="houseNumber">
-            <label htmlFor="houseNumber">House Number</label>
-            <input
-              type="number"
-              name="houseNumber"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="postcode">
-            <label htmlFor="postcode">Postcode</label>
-            <input
-              type="text"
-              name="postcode"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="city">
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              name="city"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="phoneNumber">
-            <label htmlFor="phoneNumber">Phone Number</label>
-            <input
-              type="text"
-              name="phoneNumber"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="email">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="password">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="password_check">
-            <label htmlFor="password">Re-enter password</label>
-            <input
-              type="password"
-              name="password_check"
-              onChange={this.handleChange}
-              noValidate
-            />
-          </div>
-          <div className="info">
-            <small>Password must be eight characters in length and contain the following characters:<br/>
-            At least one uppercase, one lower case, one number and a special character.
-              </small>
-          </div>
-          {this.state.error ? <div>{this.state.message}</div> : null}
-          <div className="submit">
-            <button
-              disabled={this.state.error}
-              onClick={() => this.handleSubmit()}
+      <div className="background">
+        {/* <img src="/molveno_lake.jpg" /> */}
+        <div className="wrapper">
+          <div className="form-wrapper">
+            <h2>Register</h2>
+            {/* <form noValidate> */}
+            <div className="firstName">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                onChange={this.handleChange}
+                noValidate
+              />
+            </div>
+            <div className="lastName">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                onChange={this.handleChange}
+                noValidate
+              />
+            </div>
+            <div className="address">
+              <label htmlFor="address">Address</label>
+              <input
+                type="text"
+                name="address"
+                onChange={this.handleChange}
+                noValidate
+              />
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                maxWidth: "100%"
+              }}
             >
-              Create
-            </button>
+              <div className="houseNumber">
+                <label htmlFor="houseNumber">House Number</label>
+                <input
+                  type="number"
+                  name="houseNumber"
+                  style={{ width: "50%" }}
+                  onChange={this.handleChange}
+                  noValidate
+                />
+              </div>
+              <div className="postcode">
+                <label htmlFor="postcode">Postcode</label>
+                <input
+                  type="text"
+                  name="postcode"
+                  onChange={this.handleChange}
+                  noValidate
+                />
+              </div>
+            </div>
+            <div className="city">
+              <label htmlFor="city">City</label>
+              <input
+                type="text"
+                name="city"
+                onChange={this.handleChange}
+                noValidate
+              />
+            </div>
+            <div className="phoneNumber">
+              <label htmlFor="phoneNumber">Phone Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                onChange={this.handleChange}
+                noValidate
+              />
+            </div>
+            <div className="email">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                onChange={this.handleChange}
+                noValidate
+              />
+            </div>
+            <div className="password">
+              <label htmlFor="password">Password</label>
+              <PasswordInput
+                handleChanges={this.handleChange}
+                value={this.state.password}
+                placeholder="Type your password"
+              />
+            </div>
+            <div className="password_check">
+              <label htmlFor="password">Re-enter password</label>
+              <input
+                type="password"
+                name="password_check"
+                onChange={this.handleChange}
+                noValidate
+                placeholder="Please confirm your password"
+              />
+            </div>
+            <div className="info">
+              <small>
+                Choose a strong password.
+                <br />
+              </small>
+            </div>
+            {this.state.error ? <div>{this.state.message}</div> : null}
+            <div className="submit">
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={this.state.error}
+                onClick={() => this.handleSubmit()}
+              >
+                Create account{" "}
+                {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
+                <SendIcon style={{ marginLeft: "10px", fontSize: "20px" }} />
+              </Button>
+            </div>
+
+            {/* </form> */}
           </div>
-          {/* </form> */}
         </div>
       </div>
     );
