@@ -6,7 +6,7 @@ import GuestSelector from "./GuestSelector";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
-
+import moment from "moment";
 const FilterContainer = styled.div`
   max-width: 1700px;
   margin: 0 auto;
@@ -17,8 +17,13 @@ interface Props {
 export default function Filters(props: Props): JSX.Element {
   const { getData } = props;
   const [params, setParams] = React.useState({
-    startDate: new Intl.DateTimeFormat("en-GB").format(new Date()),
-    endDate: new Intl.DateTimeFormat("en-GB").format(new Date()),
+    startDate: moment()
+      .startOf("day")
+      .format("DD/MM/YYYY"),
+    endDate: moment()
+      .startOf("day")
+      .add(1, "days")
+      .format("DD/MM/YYYY"),
     adults: 1
   });
   const handleDate = (startDate: Date, endDate: Date): void => {
@@ -38,6 +43,7 @@ export default function Filters(props: Props): JSX.Element {
       adults
     });
   };
+  console.log(params);
   return (
     <FilterContainer>
       <Grid

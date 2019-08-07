@@ -2,6 +2,8 @@ import React from "react";
 import Filters from "../filters/Filters";
 import { RoomType } from "../rooms/RoomOverview";
 import axios from "axios";
+import Typography from "@material-ui/core/Typography";
+
 interface Props {
   history: any;
 }
@@ -13,14 +15,14 @@ class Home extends React.Component<Props, State> {
   public state: State = {
     rooms: []
   };
+  componentDidMount() {
+    console.log(this.props);
+  }
   public fetchData = async (params: any): Promise<void> => {
     try {
-      const result = await axios.get("/api/rooms/findrooms", { params });
-      console.log(result);
       this.props.history.push({
         pathname: "/rooms",
         state: {
-          rooms: result.data,
           filters: params
         }
       });
@@ -30,7 +32,25 @@ class Home extends React.Component<Props, State> {
     }
   };
   public render(): React.ReactNode {
-    return <Filters getData={this.fetchData} />;
+    return (
+      <div>
+        <Typography gutterBottom variant="h5" component="h1">
+          Welcome to the Molveno Lake Hotel
+        </Typography>
+        <img src="/molveno.jpg" width="700" />
+        <Typography
+          gutterBottom
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          Please select the amount of guests and the dates for your stay:
+        </Typography>
+        <br />
+        <br />
+        <Filters getData={this.fetchData} />
+      </div>
+    );
   }
 }
 

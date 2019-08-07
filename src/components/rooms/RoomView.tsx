@@ -17,7 +17,7 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  type: number;
+  type: string;
   floor: number;
   roomNumber: number;
   adults: number;
@@ -25,6 +25,8 @@ interface Props {
   price: number;
   id: number;
   bookRoom: any;
+  totalRooms: number;
+  roomsLeft: number;
 }
 const Transition = React.forwardRef<unknown, TransitionProps>(
   function Transition(props, ref) {
@@ -58,7 +60,7 @@ const RoomView: React.FunctionComponent<Props> = (
   const classes = useStyles();
   const { type, floor, price, adults, children, bookRoom } = props;
 
-  const roomTypes = ["single", "double", "two double", "penthouse"];
+  //const roomTypes = ["single", "double", "two double", "penthouse"];
   const [open, setOpen] = React.useState(false);
 
   function handleClickOpen() {
@@ -68,28 +70,29 @@ const RoomView: React.FunctionComponent<Props> = (
   function handleClose() {
     setOpen(false);
   }
-
+  console.log(type);
   return (
     <>
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/download.jpg"
+            image={`/${type}.jpeg`}
             title="Contemplative Reptile"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {roomTypes[type]}
+              {type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              This is a {roomTypes[type]} room located on floor {floor}.
+              This is a {type} room located on floor {floor}.<br /> Rooms left:{" "}
+              {props.roomsLeft} / {props.totalRooms}
             </Typography>
             <br />
-            <Typography variant="body2" color="textSecondary" component="p">
-              It costs &euro;{price},-.
-            </Typography>
-            <br />
+            {/* <Typography variant="body2" color="textSecondary" component="p">
+                It costs &euro;{price},-.
+              </Typography>
+              <br /> */}
             <Typography variant="body2" color="textSecondary" component="p">
               This room has capacity for {adults} adult(s) and {children}{" "}
               children.
@@ -97,9 +100,9 @@ const RoomView: React.FunctionComponent<Props> = (
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => bookRoom(props)}>
+          {/* <Button size="small" color="primary" onClick={() => bookRoom(props)}>
             Book room
-          </Button>
+          </Button> */}
           <Button size="small" color="primary" onClick={handleClickOpen}>
             View room details
           </Button>
@@ -122,9 +125,14 @@ const RoomView: React.FunctionComponent<Props> = (
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              {roomTypes[type]}
+              {type}
             </Typography>
-            <Button color="inherit" onClick={handleClose}>
+            <Button
+              color="inherit"
+              onClick={() => {
+                bookRoom(props);
+              }}
+            >
               Book
             </Button>
           </Toolbar>
@@ -139,7 +147,7 @@ const RoomView: React.FunctionComponent<Props> = (
           <Grid item xs={2}>
             <CardMedia
               className={classes.media}
-              image="/download.jpg"
+              image={`/${type}.jpeg`}
               title="Contemplative Reptile"
             />
           </Grid>

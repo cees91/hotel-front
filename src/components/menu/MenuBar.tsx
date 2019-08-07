@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,19 +28,37 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ButtonAppBar(): JSX.Element {
   const classes = useStyles();
+  const userStorage = localStorage.getItem("loggedInUser");
 
+  const [loggedIn, setLoggedIn] = React.useState({
+    email: null,
+    firstName: ""
+  });
+
+  useEffect(() => {
+    if (userStorage) {
+      const user = JSON.parse(userStorage);
+      setLoggedIn(user);
+    }
+  }, [userStorage]);
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
           >
-            {/* <MenuIcon /> */}
-          </IconButton>
+          
+       
+          </IconButton> */}
+          {loggedIn.email ? (
+            <Typography variant="h6" className={classes.title}>
+              Welcome {loggedIn.firstName}
+            </Typography>
+          ) : null}
           <Typography variant="h6" className={classes.title}>
             <StyledLink to="/">
               <Button color="inherit">Home</Button>
@@ -61,7 +79,15 @@ export default function ButtonAppBar(): JSX.Element {
               <Button color="inherit">Contact us</Button>
             </StyledLink>
           </Typography>
-          <Button color="inherit">Login</Button>
+          {loggedIn.email ? (
+            <Typography variant="h6" className={classes.title}>
+              <StyledLink to="/logout">Logout</StyledLink>
+            </Typography>
+          ) : (
+            <Button color="inherit">
+              <StyledLink to="/login">Login</StyledLink>
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>
