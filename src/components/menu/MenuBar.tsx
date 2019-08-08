@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar(): JSX.Element {
   const classes = useStyles();
   const user = useContext(UserContext);
-  console.log(user);
 
   const userStorage = localStorage.getItem("loggedInUser");
 
@@ -74,11 +73,20 @@ export default function ButtonAppBar(): JSX.Element {
               <Button color="inherit">Rooms</Button>
             </StyledLink>
           </Typography> */}
-          <Typography variant="h6" className={classes.title}>
-            <StyledLink to="/bookings">
-              <Button color="inherit">Booking</Button>
-            </StyledLink>
-          </Typography>
+          {user && user.value.authType === "admin" ? (
+            <Typography variant="h6" className={classes.title}>
+              <StyledLink to="/allbookings">
+                <Button color="inherit">Show all bookings</Button>
+              </StyledLink>
+            </Typography>
+          ) : (
+            <Typography variant="h6" className={classes.title}>
+              <StyledLink to="/bookings">
+                <Button color="inherit">Booking</Button>
+              </StyledLink>
+            </Typography>
+          )}
+
           <Typography variant="h6" className={classes.title}>
             <StyledLink to="/contact">
               <Button color="inherit">Contact us</Button>

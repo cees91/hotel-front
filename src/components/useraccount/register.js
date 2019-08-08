@@ -114,6 +114,7 @@ class Register extends React.Component {
         };
         // localStorage.setItem("user", JSON.stringify(user));
         await axios.post("/api/user/create/guest", user);
+        localStorage.setItem("user", JSON.stringify(user));
         this.props.history.push("/confirmation");
       }
     }

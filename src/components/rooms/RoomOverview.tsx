@@ -2,6 +2,7 @@ import React from "react";
 import RoomView from "./RoomView";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 interface Props {
   user: string;
   location: Location;
@@ -121,7 +122,7 @@ class RoomOverview extends React.Component<Props, State> {
         roomType => roomType.type === room.type
       );
       const selectedRooms = roomsOfType
-        .slice(0, this.state.filters.adults)
+        .slice(0, Math.ceil(this.state.filters.adults / room.adults))
         .map(selectedRoom => {
           selectedRoom.startDate = this.state.filters.startDate;
           selectedRoom.endDate = this.state.filters.endDate;
@@ -145,6 +146,11 @@ class RoomOverview extends React.Component<Props, State> {
   public render(): React.ReactNode {
     return (
       <>
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h3">
+            Please select the type of room you would like to stay in.
+          </Typography>
+        </Grid>
         {this.state.roomTypes.map(
           (room, i): React.ReactNode => {
             if (

@@ -15,9 +15,7 @@ class Home extends React.Component<Props, State> {
   public state: State = {
     rooms: []
   };
-  componentDidMount() {
-    console.log(this.props);
-  }
+  componentDidMount() {}
   public fetchData = async (params: any): Promise<void> => {
     try {
       this.props.history.push({
