@@ -49,15 +49,6 @@ export default function ButtonAppBar(): JSX.Element {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-          
-       
-          </IconButton> */}
           {loggedIn.email ? (
             <Typography variant="h6" className={classes.title}>
               Welcome {loggedIn.firstName}
