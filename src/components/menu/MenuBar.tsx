@@ -45,15 +45,6 @@ export default function ButtonAppBar(): JSX.Element {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-          
-       
-          </IconButton> */}
           {loggedIn.email ? (
             <Typography variant="h6" className={classes.title}>
               welcome {loggedIn.firstName}
@@ -64,11 +55,6 @@ export default function ButtonAppBar(): JSX.Element {
               <Button color="inherit">Home</Button>
             </StyledLink>
           </Typography>
-          {/* <Typography variant="h6" className={classes.title}>
-            <StyledLink to="/rooms">
-              <Button color="inherit">Rooms</Button>
-            </StyledLink>
-          </Typography> */}
           <Typography variant="h6" className={classes.title}>
             <StyledLink to="/bookings">
               <Button color="inherit">Booking</Button>

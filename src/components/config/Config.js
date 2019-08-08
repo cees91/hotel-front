@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import MaterialTable from 'material-table';
+// import { TablePagination } from '@material-ui/core/TablePagination';
+import TablePagination from '@material-ui/core/TablePagination';
 
 export default class Config extends React.Component{
   constructor(){
@@ -15,8 +17,13 @@ export default class Config extends React.Component{
     this.fetchData();
   }
 
-  update = async(newData, oldData) => {
-
+  update = async(newData) => {
+    try{
+      await axios.put("/api/rooms/edit-room", newData)
+    }catch(error){
+      console.log(error.response.data);
+    }
+    this.fetchData();
   }
 
   add = async(data) =>{
@@ -63,9 +70,14 @@ export default class Config extends React.Component{
         title="Edit Rooms"
         columns={this.state.columns}
         data={this.state.data}
+        components={{
+          Pagination: props => (
+              <TablePagination {...props} rowsPerPageOptions={[5,10, 25, 50, 100]}/>
+          )
+      }}
         editable={{
           onRowAdd: newData => this.add(newData),
-          // onRowUpdate: (newData, oldData) => this.update( newData, oldData),
+          onRowUpdate: (newData, oldData) => this.update( newData, oldData),
           onRowDelete: oldData => this.delete(oldData),
         }}
       />

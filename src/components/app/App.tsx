@@ -55,7 +55,6 @@ class App extends React.Component<object, State> {
     return (
       <Router>
         <MenuBar />
-        {/* <Filters getData={this.fetchData} /> */}
         <br />
         <NavLink to="edit">To ala component</NavLink>
         <Container style={{ textAlign: "center" }}>
