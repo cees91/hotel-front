@@ -4,6 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import Paper from "@material-ui/core/Paper";
+import { RoomType } from "../rooms/RoomOverview";
+import UserContext from "../app/UserContext";
+
 interface Props {
   any: any;
   location: any;
@@ -21,26 +24,26 @@ interface currentBookings {
 }
 class BookingOverview extends React.Component<Props, State> {
   public state: State = {
-    currentBookings: null,
+    currentBookings: [],
     isLoggedIn: false,
     user: {}
   };
+  static contextType = UserContext;
+
   componentDidMount() {
     const roomStorage = localStorage.getItem("room");
-
-    const storage = localStorage.getItem("loggedInUser");
-    if (storage && roomStorage) {
-      const room = JSON.parse(roomStorage);
-      const user = JSON.parse(storage);
-      this.setState({ user, currentBookings: room });
-    }
+    const room = roomStorage ? JSON.parse(roomStorage) : [];
+    const user = this.context.value;
+    this.setState({ user, currentBookings: room });
   }
 
   handleBooking = async () => {
     alert("room booked!");
     try {
+      const user = { ...this.state.user };
+      user.id = 1;
       const body = {
-        user: this.state.user,
+        user,
         numberOfGuests: this.state.currentBookings[0].numberOfGuests,
         bookedRooms: this.state.currentBookings,
         startDate: this.state.currentBookings[0].startDate,
@@ -53,14 +56,14 @@ class BookingOverview extends React.Component<Props, State> {
     }
   };
   public render(): React.ReactNode {
-    if (!this.state.user.email) {
+    if (!this.state.user.emailAddress) {
       return (
         <div>
           Please <NavLink to="/login">log in</NavLink> or{" "}
           <NavLink to="/register">register</NavLink> for an account
         </div>
       );
-    } else if (this.state.currentBookings[0]) {
+    } else if (this.state.currentBookings.length > 0) {
       return (
         <div>
           <img src={`${this.state.currentBookings[0].type}.jpeg`} />
