@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SendIcon from "@material-ui/icons/Send";
-
+import axios from "axios";
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
@@ -85,7 +85,7 @@ class Register extends React.Component {
     this.setState({ [event.target.name]: event.target.value, error: false });
   };
 
-  handleSubmit = event => {
+  handleSubmit = async () => {
     // event.preventDefault();
     if (!this.isValidated()) {
       const {
@@ -96,6 +96,7 @@ class Register extends React.Component {
         postcode,
         city,
         email,
+        phoneNumber,
         password,
         password_check
       } = this.state;
@@ -107,10 +108,12 @@ class Register extends React.Component {
           houseNumber,
           postcode,
           city,
-          email,
-          password
+          emailAddress: email,
+          password,
+          phoneNumber
         };
-        localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("user", JSON.stringify(user));
+        await axios.post("/api/user/create/guest", user);
         this.props.history.push("/confirmation");
       }
     }
