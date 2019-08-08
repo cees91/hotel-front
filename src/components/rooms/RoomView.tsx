@@ -60,7 +60,7 @@ const RoomView: React.FunctionComponent<Props> = (
   const classes = useStyles();
   const { type, floor, price, adults, children, bookRoom } = props;
 
-  const roomTypes = ["single", "double", "two double", "penthouse"];
+  //const roomTypes = ["single", "double", "two double", "penthouse"];
   const [open, setOpen] = React.useState(false);
 
   function handleClickOpen() {
@@ -70,7 +70,6 @@ const RoomView: React.FunctionComponent<Props> = (
   function handleClose() {
     setOpen(false);
   }
-  console.log(type);
   return (
     <>
       <Card className={classes.card}>

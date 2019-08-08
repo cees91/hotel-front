@@ -1,5 +1,15 @@
+.background {
+  background: url("/molveno_lake.jpg") no-repeat center center fixed;
+  background-size: cover;
+  width: 100%;
+}
+
 p,
 div {
+  font-family: Lato;
+}
+
+div.confirmation {
   font-family: Lato;
 }
 
@@ -22,7 +32,6 @@ SILVER PINK: #C9ADA7
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #4a4e69;
 }
 
 .form-wrapper {
@@ -109,7 +118,9 @@ button:hover {
 .postcode,
 .city,
 .email,
-.password {
+.password,
+.password_check,
+.phoneNumber {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -118,17 +129,19 @@ button:hover {
 .firstName,
 .lastName,
 .address,
-.city {
+.city,
+.phoneNumber {
   width: 100%;
 }
-
+/* 
 .houseNumber,
 .postcode {
   width: 50%;
-}
+} */
 
 .email,
-.password {
+.password,
+.password_check {
   width: 100%;
 }
 
@@ -136,4 +149,8 @@ button:hover {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+}
+
+::placeholder {
+  font-size: 13px;
 }
