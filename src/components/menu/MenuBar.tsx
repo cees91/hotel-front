@@ -65,11 +65,18 @@ export default function ButtonAppBar(): JSX.Element {
             </StyledLink>
           </Typography> */}
           {user && user.value.authType === "admin" ? (
-            <Typography variant="h6" className={classes.title}>
-              <StyledLink to="/allbookings">
-                <Button color="inherit">Show all bookings</Button>
-              </StyledLink>
-            </Typography>
+            <>
+              <Typography variant="h6" className={classes.title}>
+                <StyledLink to="/allbookings">
+                  <Button color="inherit">Show all bookings</Button>
+                </StyledLink>
+              </Typography>
+              <Typography variant="h6" className={classes.title}>
+                <StyledLink to="/room-config">
+                  <Button color="inherit">Edit rooms</Button>
+                </StyledLink>
+              </Typography>
+            </>
           ) : (
             <Typography variant="h6" className={classes.title}>
               <StyledLink to="/bookings">

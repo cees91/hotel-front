@@ -7,13 +7,6 @@ import Home from "../home/Home";
 import MenuBar from "../menu/MenuBar";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-<<<<<<< HEAD
-import Register from "../register/register";
-import Login from "../register/Login";
-import { BrowserRouter as Router, Route, Switch,NavLink } from "react-router-dom";
-import Logout from "../register/Logout";
-import Config from "../config/Config";
-=======
 import Register from "../useraccount/register";
 import Login from "../useraccount/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -25,7 +18,7 @@ import Contact from "../contact/Contact";
 import { UserProvider, AppContextInterface } from "./UserContext";
 import axios from "axios";
 import AllBookings from "../bookings/AllBookings";
->>>>>>> develop
+import Config from "../config/Config";
 interface Routes {
   path: string;
   exact: boolean;
@@ -73,6 +66,11 @@ class App extends React.Component<object, State> {
         component: RoomOverview
       },
       {
+        path: "/room-config",
+        exact: false,
+        component: Config
+      },
+      {
         path: "/logout",
         exact: false,
         component: Logout
@@ -107,37 +105,6 @@ class App extends React.Component<object, State> {
       setUser: this.setUser
     };
     return (
-<<<<<<< HEAD
-      <Router>
-        <MenuBar />
-        <br />
-        <NavLink to="edit">To ala component</NavLink>
-        <Container style={{ textAlign: "center" }}>
-          <Grid
-            container
-            spacing={3}
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Switch>
-              {routes.map(
-                (route): JSX.Element => {
-                  return (
-                    <Route
-                      path={route.path}
-                      exact={route.exact}
-                      component={route.component}
-                      key={route.path}
-                    />
-                  );
-                }
-              )}
-            </Switch>
-          </Grid>
-        </Container>
-      </Router>
-=======
       <>
         <UserProvider value={sampleAppContext}>
           <MenuBar />
@@ -170,7 +137,6 @@ class App extends React.Component<object, State> {
           </Container>
         </UserProvider>
       </>
->>>>>>> develop
     );
   }
 }
