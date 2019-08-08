@@ -32,6 +32,7 @@ export interface RoomType {
   id: number;
   startDate: string;
   endDate: string;
+  numberOfGuests: number;
 }
 interface RoomResponse {
   data: RoomType[];
@@ -124,6 +125,7 @@ class RoomOverview extends React.Component<Props, State> {
         .map(selectedRoom => {
           selectedRoom.startDate = this.state.filters.startDate;
           selectedRoom.endDate = this.state.filters.endDate;
+          selectedRoom.numberOfGuests = this.state.filters.adults;
           return selectedRoom;
         });
 

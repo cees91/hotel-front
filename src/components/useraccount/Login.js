@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import UserContext from "../app/UserContext";
 
 const Welcome = ({ user, onSignOut }) => {
   // This is a dumb "stateless" component
@@ -44,7 +45,7 @@ class LoginForm extends React.Component {
           <input type="submit" value="Login" />
           <br />
         </form>
-        <br/>
+        <br />
         <NavLink style={{ textAlign: "center" }} to="/register">
           Or sign up for an account
         </NavLink>
@@ -61,29 +62,25 @@ class Login extends React.Component {
       user: null
     };
   }
+  static contextType = UserContext;
 
   // App "actions" (functions that modify state)
-  signIn(username, password) {
-    // This is where you would call Firebase, an API etc...
-    // calling setState will re-render the entire app (efficiently!)
-    const storage = localStorage.getItem("user");
-    const user = JSON.parse(storage);
-    if (user && user.email === username && user.password === password) {
-      this.setState(
-        {
-          user: {
-            username,
-            password
-          }
-        },
-        () => {
-          localStorage.setItem("loggedInUser", JSON.stringify(user));
-          this.props.history.push("/userprofile");
-          window.location.reload();
-        }
-      );
-    } else {
-      console.log(`incorrect:`, user);
+  async signIn(username, password) {
+    let user = null;
+    const body = {
+      emailAddress: username,
+      password: password
+    };
+    try {
+      const result = await axios.post("/api/login", body);
+      localStorage.setItem("uuid", result.data);
+      user = await axios.get("/api/login", { params: { uuid: result.data } });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+    if (user) {
+      this.context.setUser(user.data);
+      this.props.history.push("/userprofile");
     }
   }
 

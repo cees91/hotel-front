@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "../app/UserContext";
 
 const StyledLink = styled(NavLink)`
   text-decoration: none;
@@ -28,19 +29,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ButtonAppBar(): JSX.Element {
   const classes = useStyles();
+  const user = useContext(UserContext);
+  console.log(user);
+
   const userStorage = localStorage.getItem("loggedInUser");
 
   const [loggedIn, setLoggedIn] = React.useState({
-    email: null,
+    email: "",
     firstName: ""
   });
 
   useEffect(() => {
-    if (userStorage) {
-      const user = JSON.parse(userStorage);
-      setLoggedIn(user);
+    if (user) {
+      const email = user.value.emailAddress;
+      const firstName = user.value.firstName;
+      setLoggedIn({ email, firstName });
     }
-  }, [userStorage]);
+  }, [user]);
   return (
     <div className={classes.root}>
       <AppBar position="static">

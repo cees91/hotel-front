@@ -1,5 +1,6 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import UserContext from "../app/UserContext";
 
 export default class Userprofile extends React.Component {
   constructor() {
@@ -8,11 +9,10 @@ export default class Userprofile extends React.Component {
       user: {}
     };
   }
+  static contextType = UserContext;
 
   componentDidMount() {
-    const storage = localStorage.getItem("user");
-    const user = JSON.parse(storage);
-    delete user.password;
+    const user = this.context.value;
     this.setState({ user });
   }
   render() {
@@ -31,19 +31,18 @@ export default class Userprofile extends React.Component {
             </div>
             {Object.keys(this.state.user).map(property => {
               return (
-                <>
+                <div key={property}>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
-                    key={property}
                   >
                     {property.slice(0, 1).toUpperCase() +
                       property.slice(1).toLowerCase()}
                     : {this.state.user[property]}
                   </Typography>
                   <br />
-                </>
+                </div>
               );
             })}
           </>
