@@ -1,8 +1,8 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import EditIcon from "@material-ui/icons/Edit";
+import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
-
+import axios from "axios";
 import UserContext from "../app/UserContext";
 
 export default class Userprofile extends React.Component {
@@ -16,13 +16,35 @@ export default class Userprofile extends React.Component {
 
   componentDidMount() {
     const user = this.context.value;
+    console.log(user);
     this.setState({ user });
   }
 
+  handleChange = event => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        [event.target.name]: event.target.value,
+        error: false
+      }
+    });
+  };
+
+  handleSubmit = async () => {
+    // event.preventDefault();
+
+    try {
+      await axios.put("/api/user/update/guest", this.state.user);
+      this.props.history.push("/editconfirmation");
+    } catch (error) {
+      this.setState({ error: true, message: error.response.data.message });
+    }
+  };
+
   render() {
     return (
-      <div className="form-wrapper">
-        <h2>Edit profile</h2>
+      <div className="form">
+        <h2>User profile</h2>
         {/* <form noValidate> */}
         <div className="firstName">
           <label htmlFor="firstName">First Name</label>
@@ -39,7 +61,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="lastName"
-            value={this.state.user.lastName}
+            defaultValue={this.state.user.lastName}
             onChange={this.handleChange}
             noValidate
           />
@@ -49,7 +71,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="address"
-            value={this.state.user.address}
+            defaultValue={this.state.user.address}
             onChange={this.handleChange}
             noValidate
           />
@@ -113,6 +135,32 @@ export default class Userprofile extends React.Component {
             noValidate
           />
         </div>
+        <div className="password">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            onChange={this.handleChange}
+            value={this.state.user.password}
+            placeholder="Type your password"
+            readonly
+          />
+        </div>
+        <div className="info">
+          <small>
+            Please fill in your password
+            <br />
+          </small>
+        </div>
+        <div className="password_check">
+          <label htmlFor="password">Re-enter password</label>
+          <input
+            type="password"
+            name="password_check"
+            onChange={this.handleChange}
+            readonly
+            placeholder="Please confirm your password"
+          />
+        </div>
         {this.state.error ? <div>{this.state.message}</div> : null}
         <br />
         <br />
@@ -125,7 +173,7 @@ export default class Userprofile extends React.Component {
           >
             Edit account{" "}
             {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
-            <EditIcon style={{ marginLeft: "10px", fontSize: "20px" }} />
+            <SendIcon style={{ marginLeft: "10px", fontSize: "20px" }} />
           </Button>
         </div>
         {/* </form> */}

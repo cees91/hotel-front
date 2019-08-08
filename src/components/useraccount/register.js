@@ -4,7 +4,6 @@ import "./styles.css";
 import PasswordInput from "../password/PasswordInput";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import EditIcon from "@material-ui/icons/Edit";
 import SendIcon from "@material-ui/icons/Send";
 import axios from "axios";
 
@@ -143,7 +142,7 @@ class Register extends React.Component {
       <div className="background">
         {/* <img src="/molveno_lake.jpg" /> */}
         <div className="wrapper">
-          <div className="form-wrapper">
+          <div className="form">
             <h2>Register</h2>
             {/* <form noValidate> */}
             <div className="firstName">
