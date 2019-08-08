@@ -9,7 +9,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Register from "../register/register";
 import Login from "../register/Login";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch,NavLink } from "react-router-dom";
 import Logout from "../register/Logout";
 import Config from "../config/Config";
 interface Routes {
@@ -57,7 +57,7 @@ class App extends React.Component<object, State> {
         <MenuBar />
         {/* <Filters getData={this.fetchData} /> */}
         <br />
-
+        <NavLink to="edit">To ala component</NavLink>
         <Container style={{ textAlign: "center" }}>
           <Grid
             container
