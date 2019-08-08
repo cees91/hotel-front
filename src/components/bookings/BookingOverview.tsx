@@ -81,7 +81,7 @@ class BookingOverview extends React.Component<Props, State> {
         endDate: this.state.currentBookings[0].endDate
       };
       await axios.post("/api/bookings", body);
-      // this.props.history.push("/confirmation");
+      this.props.history.push("/confirmation");
     } catch (error) {
       console.log(error);
       console.log(error.response.data);
