@@ -151,6 +151,12 @@ button:hover {
   flex-wrap: wrap;
 }
 
+.edit {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 ::placeholder {
   font-size: 13px;
 }

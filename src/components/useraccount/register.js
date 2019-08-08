@@ -4,9 +4,10 @@ import "./styles.css";
 import PasswordInput from "../password/PasswordInput";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-
+import EditIcon from "@material-ui/icons/Edit";
 import SendIcon from "@material-ui/icons/Send";
 import axios from "axios";
+
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
@@ -112,9 +113,12 @@ class Register extends React.Component {
           password,
           phoneNumber
         };
-        // localStorage.setItem("user", JSON.stringify(user));
-        await axios.post("/api/user/create/guest", user);
-        this.props.history.push("/confirmation");
+        try {
+          await axios.post("/api/user/create/guest", user);
+          this.props.history.push("/confirmation");
+        } catch (error) {
+          this.setState({ error: true, message: error.response.data.message });
+        }
       }
     }
   };
@@ -231,6 +235,12 @@ class Register extends React.Component {
                 placeholder="Type your password"
               />
             </div>
+            <div className="info">
+              <small>
+                Choose a strong password.
+                <br />
+              </small>
+            </div>
             <div className="password_check">
               <label htmlFor="password">Re-enter password</label>
               <input
@@ -241,13 +251,9 @@ class Register extends React.Component {
                 placeholder="Please confirm your password"
               />
             </div>
-            <div className="info">
-              <small>
-                Choose a strong password.
-                <br />
-              </small>
-            </div>
             {this.state.error ? <div>{this.state.message}</div> : null}
+            <br />
+            <br />
             <div className="submit">
               <Button
                 variant="contained"
@@ -260,7 +266,6 @@ class Register extends React.Component {
                 <SendIcon style={{ marginLeft: "10px", fontSize: "20px" }} />
               </Button>
             </div>
-
             {/* </form> */}
           </div>
         </div>
