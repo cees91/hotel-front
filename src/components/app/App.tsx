@@ -17,7 +17,7 @@ import Userprofile from "../useraccount/Userprofile";
 import Contact from "../contact/Contact";
 import { UserProvider, AppContextInterface } from "./UserContext";
 import axios from "axios";
-
+import AllBookings from "../bookings/AllBookings";
 interface Routes {
   path: string;
   exact: boolean;
@@ -52,6 +52,11 @@ class App extends React.Component<object, State> {
         path: "/",
         exact: true,
         component: Home
+      },
+      {
+        path: "/allbookings",
+        exact: false,
+        component: AllBookings
       },
       {
         path: "/rooms",

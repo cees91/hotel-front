@@ -70,7 +70,6 @@ const RoomView: React.FunctionComponent<Props> = (
   function handleClose() {
     setOpen(false);
   }
-  console.log(type);
   return (
     <>
       <Card className={classes.card}>
