@@ -3,6 +3,8 @@ import Typography from "@material-ui/core/Typography";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 
+import UserContext from "../app/UserContext";
+
 export default class Userprofile extends React.Component {
   constructor() {
     super();
@@ -10,11 +12,10 @@ export default class Userprofile extends React.Component {
       user: {}
     };
   }
+  static contextType = UserContext;
 
   componentDidMount() {
-    const storage = localStorage.getItem("user");
-    const user = JSON.parse(storage);
-    delete user.password;
+    const user = this.context.value;
     this.setState({ user });
   }
 
@@ -28,7 +29,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="firstName"
-            value={this.state.firstName}
+            value={this.state.user.firstName}
             onChange={this.handleChange}
             noValidate
           />
@@ -38,6 +39,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="lastName"
+            value={this.state.user.lastName}
             onChange={this.handleChange}
             noValidate
           />
@@ -47,6 +49,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="address"
+            value={this.state.user.address}
             onChange={this.handleChange}
             noValidate
           />
@@ -63,6 +66,7 @@ export default class Userprofile extends React.Component {
             <input
               type="number"
               name="houseNumber"
+              value={this.state.user.houseNumber}
               style={{ width: "50%" }}
               onChange={this.handleChange}
               noValidate
@@ -73,6 +77,7 @@ export default class Userprofile extends React.Component {
             <input
               type="text"
               name="postcode"
+              value={this.state.user.postcode}
               onChange={this.handleChange}
               noValidate
             />
@@ -83,6 +88,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="city"
+            value={this.state.user.city}
             onChange={this.handleChange}
             noValidate
           />
@@ -92,6 +98,7 @@ export default class Userprofile extends React.Component {
           <input
             type="text"
             name="phoneNumber"
+            value={this.state.user.phoneNumber}
             onChange={this.handleChange}
             noValidate
           />
@@ -101,6 +108,7 @@ export default class Userprofile extends React.Component {
           <input
             type="email"
             name="emailAdress"
+            value={this.state.user.emailAddress}
             onChange={this.handleChange}
             noValidate
           />
