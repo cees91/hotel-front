@@ -17,39 +17,60 @@ const Welcome = ({ user, onSignOut }) => {
 
 class LoginForm extends React.Component {
   // Using a class based component here because we're accessing DOM refs
-
+  constructor() {
+    super();
+    this.state = {
+      emailAddress: "",
+      password: ""
+    };
+  }
   handleSignIn(e) {
     e.preventDefault();
-    let username = this.refs.username.value;
-    let password = this.refs.password.value;
+    let username = this.state.emailAddress;
+    let password = this.state.password;
     this.props.onSignIn(username, password);
   }
-
+  changeHandler = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
   render() {
     return (
-      <>
+      <div className="background-login">
         <form onSubmit={this.handleSignIn.bind(this)}>
-          <h3>Sign in</h3>
-          <input
-            type="text"
-            ref="username"
-            placeholder="enter you username"
-            name="username"
-          />
-          <input
-            type="password"
-            ref="password"
-            placeholder="enter password"
-            name="password"
-          />
+          <h3>Please sign in to your account:</h3>
+          <br />
+          <br />
+          <div className="emailLogin">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="text"
+              value={this.state.emailAddress}
+              onChange={this.changeHandler}
+              placeholder="enter your email"
+              name="emailAddress"
+            />
+          </div>
+          <div className="passwordLogin">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.changeHandler}
+              placeholder="enter password"
+              name="password"
+            />
+          </div>
           <input type="submit" value="Login" />
           <br />
         </form>
         <br />
-        <NavLink style={{ textAlign: "center" }} to="/register">
-          Or sign up for an account
-        </NavLink>
-      </>
+        <br />
+        <div classname="confirmation">
+          <NavLink style={{ textAlign: "center" }} to="/register">
+            Or sign up for an account
+          </NavLink>
+        </div>
+      </div>
     );
   }
 }

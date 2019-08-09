@@ -51,7 +51,7 @@ export default function ButtonAppBar(): JSX.Element {
         <Toolbar>
           {loggedIn.email ? (
             <Typography variant="h6" className={classes.title}>
-              Welcome {loggedIn.firstName}
+              Welcome <NavLink to="/userprofile">{loggedIn.firstName}</NavLink>
             </Typography>
           ) : null}
           <Typography variant="h6" className={classes.title}>
