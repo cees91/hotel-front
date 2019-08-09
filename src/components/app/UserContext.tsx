@@ -3,6 +3,7 @@ import React from "react";
 interface User {
   emailAddress: string;
   firstName: string;
+  authType: string;
 }
 export interface AppContextInterface {
   value: User;

@@ -112,8 +112,10 @@ class Register extends React.Component {
           password,
           phoneNumber
         };
+        // localStorage.setItem("user", JSON.stringify(user));
         try {
           await axios.post("/api/user/create/guest", user);
+          localStorage.setItem("user", JSON.stringify(user));
           this.props.history.push("/confirmation");
         } catch (error) {
           this.setState({ error: true, message: error.response.data.message });

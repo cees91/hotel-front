@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar(): JSX.Element {
   const classes = useStyles();
   const user = useContext(UserContext);
-  console.log(user);
 
   const userStorage = localStorage.getItem("loggedInUser");
 
@@ -50,15 +49,6 @@ export default function ButtonAppBar(): JSX.Element {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-          
-       
-          </IconButton> */}
           {loggedIn.email ? (
             <Typography variant="h6" className={classes.title}>
               Welcome <NavLink to="/userprofile">{loggedIn.firstName}</NavLink>
@@ -74,11 +64,27 @@ export default function ButtonAppBar(): JSX.Element {
               <Button color="inherit">Rooms</Button>
             </StyledLink>
           </Typography> */}
-          <Typography variant="h6" className={classes.title}>
-            <StyledLink to="/bookings">
-              <Button color="inherit">Booking</Button>
-            </StyledLink>
-          </Typography>
+          {user && user.value.authType === "admin" ? (
+            <>
+              <Typography variant="h6" className={classes.title}>
+                <StyledLink to="/allbookings">
+                  <Button color="inherit">Show all bookings</Button>
+                </StyledLink>
+              </Typography>
+              <Typography variant="h6" className={classes.title}>
+                <StyledLink to="/room-config">
+                  <Button color="inherit">Edit rooms</Button>
+                </StyledLink>
+              </Typography>
+            </>
+          ) : (
+            <Typography variant="h6" className={classes.title}>
+              <StyledLink to="/bookings">
+                <Button color="inherit">Booking</Button>
+              </StyledLink>
+            </Typography>
+          )}
+
           <Typography variant="h6" className={classes.title}>
             <StyledLink to="/contact">
               <Button color="inherit">Contact us</Button>

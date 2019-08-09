@@ -43,7 +43,6 @@ export default function Filters(props: Props): JSX.Element {
       adults
     });
   };
-  console.log(params);
   return (
     <FilterContainer>
       <Grid
